@@ -4,8 +4,6 @@ import (
 	"crypto/tls"
 	"fmt"
 	"log"
-	"net"
-	"net/http"
 	"os"
 
 	"github.com/quic-go/quic-go"
@@ -72,34 +70,11 @@ func main() {
 }
 
 func runHTTP09Server(tlsConf *tls.Config, quicConf *quic.Config, forceRetry bool) error {
-	http.DefaultServeMux.Handle("/", http.FileServer(http.Dir("/www")))
-	server := http09.Server{}
-
-	udpAddr, err := net.ResolveUDPAddr("udp", ":443")
-	if err != nil {
-		return err
-	}
-	conn, err := net.ListenUDP("udp", udpAddr)
-	if err != nil {
-		return err
-	}
-	tr := &quic.Transport{
-		Conn:                conn,
-		VerifySourceAddress: func(net.Addr) bool { return forceRetry },
-	}
-	ln, err := tr.ListenEarly(tlsConf, quicConf)
-	if err != nil {
-		return err
-	}
-	return server.ServeListener(ln)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func runHTTP3Server(tlsConf *tls.Config, quicConf *quic.Config) error {
-	server := http3.Server{
-		Addr:       ":443",
-		TLSConfig:  tlsConf,
-		QUICConfig: quicConf,
-	}
-	http.DefaultServeMux.Handle("/", http.FileServer(http.Dir("/www")))
-	return server.ListenAndServe()
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -12,36 +12,16 @@ type encoderHelper struct {
 	err error
 }
 
-func (h *encoderHelper) WriteToken(t jsontext.Token) {
-	if h.err != nil {
-		return
-	}
-	h.err = h.enc.WriteToken(t)
-}
+func (h *encoderHelper) WriteToken(t jsontext.Token) { _ = "STUB: not implemented"; return }
 
 type RawInfo struct {
-	Length        int // full packet length, including header and AEAD authentication tag
-	PayloadLength int // length of the packet payload, excluding AEAD tag
+	Length        int
+	PayloadLength int
 }
 
-func (i RawInfo) HasValues() bool {
-	return i.Length != 0 || i.PayloadLength != 0
-}
+func (i RawInfo) HasValues() bool { _ = "STUB: not implemented"; return false }
 
-func (i RawInfo) encode(enc *jsontext.Encoder) error {
-	h := encoderHelper{enc: enc}
-	h.WriteToken(jsontext.BeginObject)
-	if i.Length != 0 {
-		h.WriteToken(jsontext.String("length"))
-		h.WriteToken(jsontext.Uint(uint64(i.Length)))
-	}
-	if i.PayloadLength != 0 {
-		h.WriteToken(jsontext.String("payload_length"))
-		h.WriteToken(jsontext.Uint(uint64(i.PayloadLength)))
-	}
-	h.WriteToken(jsontext.EndObject)
-	return h.err
-}
+func (i RawInfo) encode(enc *jsontext.Encoder) error { _ = "STUB: not implemented"; return nil }
 
 type FrameParsed struct {
 	StreamID quic.StreamID
@@ -49,25 +29,11 @@ type FrameParsed struct {
 	Frame    Frame
 }
 
-func (e FrameParsed) Name() string { return "http3:frame_parsed" }
+func (e FrameParsed) Name() string { _ = "STUB: not implemented"; return "" }
 
 func (e FrameParsed) Encode(enc *jsontext.Encoder, _ time.Time) error {
-	h := encoderHelper{enc: enc}
-	h.WriteToken(jsontext.BeginObject)
-	h.WriteToken(jsontext.String("stream_id"))
-	h.WriteToken(jsontext.Uint(uint64(e.StreamID)))
-	if e.Raw.HasValues() {
-		h.WriteToken(jsontext.String("raw"))
-		if err := e.Raw.encode(enc); err != nil {
-			return err
-		}
-	}
-	h.WriteToken(jsontext.String("frame"))
-	if err := e.Frame.encode(enc); err != nil {
-		return err
-	}
-	h.WriteToken(jsontext.EndObject)
-	return h.err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type FrameCreated struct {
@@ -76,25 +42,11 @@ type FrameCreated struct {
 	Frame    Frame
 }
 
-func (e FrameCreated) Name() string { return "http3:frame_created" }
+func (e FrameCreated) Name() string { _ = "STUB: not implemented"; return "" }
 
 func (e FrameCreated) Encode(enc *jsontext.Encoder, _ time.Time) error {
-	h := encoderHelper{enc: enc}
-	h.WriteToken(jsontext.BeginObject)
-	h.WriteToken(jsontext.String("stream_id"))
-	h.WriteToken(jsontext.Uint(uint64(e.StreamID)))
-	if e.Raw.HasValues() {
-		h.WriteToken(jsontext.String("raw"))
-		if err := e.Raw.encode(enc); err != nil {
-			return err
-		}
-	}
-	h.WriteToken(jsontext.String("frame"))
-	if err := e.Frame.encode(enc); err != nil {
-		return err
-	}
-	h.WriteToken(jsontext.EndObject)
-	return h.err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type DatagramCreated struct {
@@ -102,19 +54,11 @@ type DatagramCreated struct {
 	Raw             RawInfo
 }
 
-func (e DatagramCreated) Name() string { return "http3:datagram_created" }
+func (e DatagramCreated) Name() string { _ = "STUB: not implemented"; return "" }
 
 func (e DatagramCreated) Encode(enc *jsontext.Encoder, _ time.Time) error {
-	h := encoderHelper{enc: enc}
-	h.WriteToken(jsontext.BeginObject)
-	h.WriteToken(jsontext.String("quarter_stream_id"))
-	h.WriteToken(jsontext.Uint(e.QuarterStreamID))
-	h.WriteToken(jsontext.String("raw"))
-	if err := e.Raw.encode(enc); err != nil {
-		return err
-	}
-	h.WriteToken(jsontext.EndObject)
-	return h.err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type DatagramParsed struct {
@@ -122,17 +66,9 @@ type DatagramParsed struct {
 	Raw             RawInfo
 }
 
-func (e DatagramParsed) Name() string { return "http3:datagram_parsed" }
+func (e DatagramParsed) Name() string { _ = "STUB: not implemented"; return "" }
 
 func (e DatagramParsed) Encode(enc *jsontext.Encoder, _ time.Time) error {
-	h := encoderHelper{enc: enc}
-	h.WriteToken(jsontext.BeginObject)
-	h.WriteToken(jsontext.String("quarter_stream_id"))
-	h.WriteToken(jsontext.Uint(e.QuarterStreamID))
-	h.WriteToken(jsontext.String("raw"))
-	if err := e.Raw.encode(enc); err != nil {
-		return err
-	}
-	h.WriteToken(jsontext.EndObject)
-	return h.err
+	_ = "STUB: not implemented"
+	return nil
 }

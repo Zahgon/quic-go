@@ -8,11 +8,12 @@ import (
 )
 
 func newConn(c net.PacketConn, supportsDF bool) (*basicConn, error) {
-	return &basicConn{PacketConn: c, supportsDF: supportsDF}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 type packetInfo struct {
 	addr netip.Addr
 }
 
-func (i *packetInfo) OOB() []byte { return nil }
+func (i *packetInfo) OOB() []byte { _ = "STUB: not implemented"; return nil }
